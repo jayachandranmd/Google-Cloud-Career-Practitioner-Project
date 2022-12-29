@@ -1,5 +1,7 @@
 import 'package:chargeio/screens/add_user.dart';
 import 'package:chargeio/screens/existing_user.dart';
+import 'package:chargeio/screens/login.dart';
+import 'package:chargeio/utils/auth_methods.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +45,7 @@ class _HomePageWebState extends State<HomePageWeb> {
               ),
               SideMenuItem(
                 priority: 1,
-                title: 'Existing User',
+                title: 'Existing Users',
                 onTap: () {
                   page.jumpToPage(1);
                 },
@@ -52,6 +54,22 @@ class _HomePageWebState extends State<HomePageWeb> {
                   color: blue,
                 ),
                 tooltipContent: "Click to add new user",
+              ),
+              SideMenuItem(
+                priority: 2,
+                title: 'Switch User',
+                onTap: () async {
+                  AuthMethods().signOut();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      (route) => false);
+                },
+                icon: Icon(
+                  Icons.swap_horiz,
+                  color: blue,
+                ),
+                tooltipContent: "Click to switch users",
               ),
             ], controller: page),
           ),
