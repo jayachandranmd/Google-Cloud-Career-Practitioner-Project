@@ -4,16 +4,16 @@ class User {
   final String email;
   final String uid;
   final String name;
+  final String password;
   final String gender;
-  final String role;
   final String accessControl;
 
   const User(
       {required this.email,
       required this.uid,
       required this.name,
+      required this.password,
       required this.gender,
-      required this.role,
       required this.accessControl});
 
   static User fromSnap(DocumentSnapshot snap) {
@@ -23,8 +23,8 @@ class User {
         email: snapshot["email"],
         uid: snapshot["uid"],
         name: snapshot["name"],
+        password: snapshot['password'],
         gender: snapshot['gender'],
-        role: snapshot['role'],
         accessControl: snapshot['accessControl']);
   }
 
@@ -33,7 +33,7 @@ class User {
         "uid": uid,
         "name": name,
         "gender": gender,
-        "role": role,
-        "accessControl": accessControl
+        "accessControl": accessControl,
+        "password": password
       };
 }
