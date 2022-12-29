@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "501352347428",
+    "project_id": "charge-io",
+    "storage_bucket": "charge-io.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501352347428:android:c20b0dc666da6db19e25b1",
+        "android_client_info": {
+          "package_name": "com.example.chargeio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501352347428-4f04dr595tmmjfp4nsvutd2mr9nkvo95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Vxw_j07MVFS_7FxVPEzrDQ7eNQnlM6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501352347428-4f04dr595tmmjfp4nsvutd2mr9nkvo95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
