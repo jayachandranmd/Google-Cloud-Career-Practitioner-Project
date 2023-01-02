@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/colors.dart';
@@ -13,8 +14,48 @@ class ControlsPage extends StatefulWidget {
 }
 
 class _ControlsPageState extends State<ControlsPage> {
-  bool fanStatus = false;
   bool lightStatus = false;
+  var ledStatus;
+  bool isLoading = false;
+  final dbRef = FirebaseDatabase.instance.ref();
+
+  getLEDStatus() async {
+    await dbRef.child('LED_STATUS').once().then((snapshot) {
+      ledStatus = snapshot.snapshot.value;
+      if (kDebugMode) {
+        print(ledStatus);
+      }
+    });
+    setState(() {
+      isLoading = false;
+      ledStatus == 0 ? lightStatus = false : lightStatus = true;
+    });
+  }
+
+  void buttonPressed() {
+    ledStatus == 0
+        ? dbRef.child('LED_STATUS').set(1)
+        : dbRef.child('LED_STATUS').set(0);
+    if (ledStatus == 0) {
+      setState(() {
+        ledStatus = 1;
+        lightStatus = true;
+      });
+    } else {
+      setState(() {
+        ledStatus = 0;
+        lightStatus = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    isLoading = true;
+    getLEDStatus();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,34 +97,8 @@ class _ControlsPageState extends State<ControlsPage> {
                     width: 35,
                   ),
                   sBoxH30,
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: grey),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          'assets/icons/fan.png',
-                          height: 30,
-                          width: 30,
-                        ),
-                        CupertinoSwitch(
-                          activeColor: blue,
-                          value: fanStatus,
-                          onChanged: (value) {
-                            fanStatus = value;
-                            setState(
-                              () {},
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ),
                   sBoxH20,
-                  Container(
+                  /*Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                         border: Border.all(color: grey),
@@ -97,18 +112,30 @@ class _ControlsPageState extends State<ControlsPage> {
                           width: 30,
                         ),
                         CupertinoSwitch(
-                          value: lightStatus,
-                          activeColor: blue,
-                          onChanged: (value) {
-                            lightStatus = value;
-                            setState(
-                              () {},
-                            );
-                          },
-                        )
+                            value: lightStatus,
+                            activeColor: blue,
+                            onChanged: (value) {
+                              buttonPressed;
+                            })
                       ],
                     ),
-                  )
+                  ),*/
+                  sBoxH30,
+                  RawMaterialButton(
+                    onPressed: buttonPressed,
+                    elevation: 2.0,
+                    fillColor: !lightStatus ? Colors.white : blue,
+                    padding: const EdgeInsets.all(50.0),
+                    shape: const CircleBorder(),
+                    child: const Icon(
+                      Icons.power_settings_new_sharp,
+                      size: 35.0,
+                    ),
+                  ),
+                  sBoxH30,
+                  lightStatus
+                      ? const Text('Tap to turn Off')
+                      : const Text('Tap to turn On')
                 ],
               ),
             )
