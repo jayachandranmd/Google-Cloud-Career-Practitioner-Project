@@ -1,4 +1,3 @@
-import 'package:chargeio/screens/home_page_web.dart';
 import 'package:chargeio/screens/login.dart';
 import 'package:chargeio/screens/splash_screen.dart';
 import 'package:chargeio/utils/colors.dart';
