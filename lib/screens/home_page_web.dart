@@ -62,7 +62,8 @@ class _HomePageWebState extends State<HomePageWeb> {
                   AuthMethods().signOut();
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
                       (route) => false);
                 },
                 icon: Icon(
@@ -78,7 +79,7 @@ class _HomePageWebState extends State<HomePageWeb> {
               child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: page,
-                children: [const AddUser(), ExistingUser()],
+                children: const [AddUser(), ExistingUser()],
               ))
         ],
       ),

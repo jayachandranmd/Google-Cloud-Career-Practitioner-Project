@@ -1,14 +1,11 @@
-import 'dart:math';
-
 import 'package:chargeio/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 import '../utils/textstyle.dart';
-import 'home_page.dart';
 
 class ExistingUser extends StatelessWidget {
-  ExistingUser({Key? key}) : super(key: key);
+  const ExistingUser({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +50,7 @@ class ExistingUser extends StatelessWidget {
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(child: LinearProgressIndicator());
+                      return const Center(child: LinearProgressIndicator());
                     }
                     return _buildTable(context, snapshot.data!.docs);
                   }),
